@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const getAllObjects = require('../controllers/controller');
+const { getAllObjects, createObject } = require('../controllers/controller');
 
-router.route('/').get(getAllObjects);
+router.route('/').get(getAllObjects).post(createObject);
 
 module.exports = router;
