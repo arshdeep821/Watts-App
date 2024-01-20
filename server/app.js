@@ -3,7 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const objectRouter = require('./routes/routes');
+
 app.use(express.json());
+
+
+app.use('/api/v1/object', objectRouter);
 
 const port = process.env.PORT || 3000;
 
