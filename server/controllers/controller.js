@@ -4,14 +4,14 @@ const Object = require('../models/Object');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllObjects = async (req, res) => {
-    const object = await Object.create({room_id: '145', usage: ['1', '2', '3'], threshold: 30});
-    res.status(StatusCodes.OK).json({ object });
+    const jobs = await Object.find({});
+    res.status(StatusCodes.OK).json(jobs);
 }
 
 const createObject = async (req, res) => {
 
     const object = await Object.create(req.body);
-    res.status(StatusCodes.OK).json(object);
+    res.status(StatusCodes.CREATED).json(object);
 }
 
 module.exports = {getAllObjects, createObject};
