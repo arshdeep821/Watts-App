@@ -17,6 +17,6 @@ const ObjectSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please provide threshold']
     }
-}, { timestamps: true });
+});
 
 module.exports = mongoose.model('Object', ObjectSchema);
