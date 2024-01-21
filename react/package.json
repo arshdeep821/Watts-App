@@ -5,7 +5,11 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@mappedin/mappedin-js": "latest",
+    "@mui/icons-material": "^5.15.5",
+    "@mui/material": "^5.15.5",
     "axios": "^1.6.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
