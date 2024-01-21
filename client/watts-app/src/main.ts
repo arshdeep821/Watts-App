@@ -5,7 +5,7 @@ import {
   TColor
 } from "@mappedin/mappedin-js";
 import "@mappedin/mappedin-js/lib/mappedin.css";
-const axios = require("axios");
+import axios from "axios";
 
 // See Trial API key Terms and Conditions
 // https://developer.mappedin.com/guides/api-keys
@@ -22,7 +22,7 @@ const redColor: TColor = {
 
 async function get_rooms() {
   const response = await axios.get("http://localhost:3000/api/v1/object");
-  return response.data.toJSON() as room[];
+  return response.data as room[];
 }
 
 interface room {
@@ -38,23 +38,32 @@ interface time_usage {
   value: number;
 }
 
-const process_colours = (name: string, mapView, venue): TColor[] => {
-  const polygons = venue.locations.find(location => location.name === name)?.polygons;
+const venue = await getVenueMaker(options);
+const mapView = await showVenue(document.getElementById("app")!, venue, {
+  multiBufferRendering: true,
+  xRayPath: true,
+  loadOptions: {
+  }
+});
+
+const process_colours = (room: room): void => {
+  const polygons = venue.locations.find(location => location.name === room.room_id)?.polygons;
+  const totalUsage = room.usage.reduce((sum, current) => sum + current.value, 0) / room.threshold;
   if (polygons) {
-    mapView.setPolygonColor(polygons[0], "#BF4320");
+    if (totalUsage >= 1) {
+      mapView.setPolygonColor(polygons[0], "#FF0000");
+    } else if (totalUsage >= 0.66) { 
+      mapView.setPolygonColor(polygons[0], "#FF6347");
+    } else {
+      mapView.setPolygonColor(polygons[0], "#FFA07A");
+    }
   }
 }
 
-async function init() {
-  const venue = await getVenueMaker(options);
-  const mapView = await showVenue(document.getElementById("app")!, venue, {
-    multiBufferRendering: true,
-    xRayPath: true,
-    loadOptions: {
-    }
-  });
-  const start = venue.locations.find((l) => l.name === "LL201")!;
-  const end = venue.locations.find((l) => l.name === "Teadot 1303")!;
+const wayfinding = (threshold: room): void => {
+  const start = venue.locations.find((l) => l.name == "LL201")!;
+  const end = venue.locations.find((l) => l.name === threshold.room_id)!;
+  console.error(start, end);
   mapView.Journey.draw(start.directionsTo(end), {
     pathOptions: {
       nearRadius: .3,
@@ -66,10 +75,23 @@ async function init() {
     }
   });
   mapView.FlatLabels.labelAllLocations();
-  // mapView.StackedMaps.enable({ verticalDistanceBetweenMaps: 150 });
-  // mapView.StackedMaps.showOverview();
-  // const colors = ["dodgerblue", "pink", "green", "orange", "tomato", "gray"];
-  
+}
+
+async function init() {
+  mapView.setBackgroundColor("#050505");
+  const rooms = await get_rooms();
+  for (const room of rooms) {
+    process_colours(room);
+  }
+  const thresholds = rooms.filter(room => {
+    const totalUsage = room.usage.reduce((sum, current) => sum + current.value, 0);
+    return totalUsage > room.threshold;
+  });
+  console.error(thresholds[0].room_id);
+  if (thresholds) {
+    wayfinding(thresholds[0]);
+  }
+  mapView.FloatingLabels.labelAllLocations();
 }
 
 init();
