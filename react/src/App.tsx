@@ -37,7 +37,7 @@ export default function App() {
   const endLocations = [
     "CITR Radio LL502",
     "INS Market LL301",
-    "Flavour Lab LL104",
+    "Flavour Lab LL104"
   ];
 
   const incrementEndLocation = () => {
@@ -120,7 +120,7 @@ export default function App() {
 
   return (
     <>
-      <button onClick={onPress}>Press me to change route</button>
+      <button onClick={onPress}>Next Critical Room</button>
       <div id="app" ref={mapRef} />
     </>
   );
