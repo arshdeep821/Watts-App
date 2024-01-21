@@ -6,6 +6,7 @@
   "main": "src/index.tsx",
   "dependencies": {
     "@mappedin/mappedin-js": "latest",
+    "axios": "^1.6.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-scripts": "4.0.3"
@@ -21,5 +22,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

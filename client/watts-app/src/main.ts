@@ -1,8 +1,7 @@
 import {
   showVenue,
   TGetVenueMakerOptions,
-  getVenueMaker,
-  TColor
+  getVenueMaker
 } from "@mappedin/mappedin-js";
 import "@mappedin/mappedin-js/lib/mappedin.css";
 import axios from "axios";
@@ -13,12 +12,6 @@ const options: TGetVenueMakerOptions = {
   mapId: "659efcf1040fcba69696e7b6", 
   key: "65a0422df128bbf7c7072349", 
   secret: "5f72653eba818842c16c4fdb9c874ae02100ffced413f638b7bd9c65fd5b92a4", };
-
-const redColor: TColor = {
-  hex: "#FF0000",
-  opacity: 1.0,
-  rgba: "rgba(255, 0, 0, 1)"
-};
 
 async function get_rooms() {
   const response = await axios.get("http://localhost:3000/api/v1/object");
