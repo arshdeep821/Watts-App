@@ -1,7 +1,17 @@
+const Object = require('../models/Object');
+
+
 const { StatusCodes } = require('http-status-codes');
 
 const getAllObjects = async (req, res) => {
-    res.send('Get All Objects');
+    const jobs = await Object.find({});
+    res.status(StatusCodes.OK).json(jobs);
 }
 
-module.exports = getAllObjects;
+const createObject = async (req, res) => {
+
+    const object = await Object.create(req.body);
+    res.status(StatusCodes.CREATED).json(object);
+}
+
+module.exports = {getAllObjects, createObject};
