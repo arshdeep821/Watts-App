@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import logo from './logo.png'; // Import the logo
 
 export default function Header() {
-  const progressValue = 67; // Set your progress value here
+  const progressValue = 75; // Set your progress value here
 
   return (
     <>
@@ -17,28 +17,29 @@ export default function Header() {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <img src={logo} alt="Logo" style={{ height: '150px', marginRight: '10px' }} />
             <Typography variant="h2" component="div">
-              WattsApp
+              Watts App
             </Typography>
           </Box>
 
           {/* Spacer to push content to sides */}
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* Larger Progress on the Right */}
+          {/* Thicker Progress with Amber Color on the Right */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <CircularProgress
               variant="determinate"
               value={progressValue}
               size={80} // Larger size
-              thickness={4} // Adjust thickness
+              thickness={8} // Increased thickness
               sx={{
                 [`& .${circularProgressClasses.circle}`]: {
                   strokeLinecap: 'round',
+                  color: '#eb4034', // Amber color
                 },
               }}
             />
-            <Typography sx={{ ml: 2, fontSize: '1.9rem' }}> {/* Larger font size */}
-              {progressValue}% Below Goal
+            <Typography sx={{ ml: 2, fontSize: '1.2rem' }}>
+              {progressValue}% Above Goal
             </Typography>
           </Box>
         </Toolbar>
@@ -46,3 +47,4 @@ export default function Header() {
     </>
   );
 }
+

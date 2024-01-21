@@ -120,7 +120,22 @@ export default function App() {
 
   return (
     <>
-      <button onClick={onPress}>Next Critical Room</button>
+      <button 
+        onClick={onPress} 
+        style={{
+          backgroundColor: '#eb4034', // Amber color
+          color: 'white', // White text
+          padding: '10px 20px', // Larger padding
+          fontSize: '1.2rem', // Larger font size
+          border: 'none', // No border
+          borderRadius: '5px', // Rounded corners
+          cursor: 'pointer', // Pointer on hover
+          margin: '10px', // Margin around the button
+          fontWeight: 'bold' // Bold font
+        }}
+      >
+        Next Critical Room
+      </button>
       <div id="app" ref={mapRef} />
     </>
   );
