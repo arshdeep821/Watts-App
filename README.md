@@ -1,5 +1,7 @@
 # Watts-App
 
+### NW-Hacks 2024 Project
+
 ## Front-End
 
 ```zsh
